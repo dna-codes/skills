@@ -35,4 +35,4 @@ Look-up mid-task (query existing DNA without authoring) uses the separate `busin
 
 ## Source of truth
 
-This repository **is** the canonical skill tree. The private platform checks it out as a git submodule (no second copy).
+This repository **is** the canonical skill tree. The DNA platform monorepo does not vendor a copy or submodule.

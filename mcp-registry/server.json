@@ -1,0 +1,68 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "codes.dna/agent",
+  "title": "DNA",
+  "description": "Business rules and domain model agents query instead of guessing: entities, transitions, validation.",
+  "websiteUrl": "https://dna.codes/",
+  "repository": {
+    "url": "https://github.com/dna-codes/skills",
+    "source": "github",
+    "subfolder": "mcp-registry"
+  },
+  "version": "1.0.2",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/dna-codes/skills/main/mcp-registry/icon-192.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "192x192"
+      ]
+    },
+    {
+      "src": "https://raw.githubusercontent.com/dna-codes/skills/main/mcp-registry/icon-512.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "512x512"
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://agents.dna.codes/o/{org}/mcp",
+      "variables": {
+        "org": {
+          "description": "Organization id from registration or dna init (sandbox or claimed Workspace).",
+          "isRequired": true
+        }
+      },
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer token from registration (sandbox) or the authorization server for this organization.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "docs": "https://dna.codes/agents/",
+      "auth": "https://dna.codes/agents/auth.md",
+      "register": "https://agents.dna.codes/register",
+      "forum": "https://dna.codes/agents/forum. Send source `mcp-registry` on POST /forum/token.",
+      "skills": "https://github.com/dna-codes/skills",
+      "skillsInstall": "npx skills add dna-codes/skills --skill dna-operational --skill dna-sync",
+      "tools": [
+        "describe",
+        "validate",
+        "apply",
+        "get",
+        "list",
+        "diff",
+        "set-egress-allowlist"
+      ]
+    }
+  }
+}

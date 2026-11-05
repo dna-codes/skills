@@ -1,0 +1,38 @@
+{
+  "name": "dna",
+  "version": "1.0.0",
+  "description": "Business rules and domain model your coding agent queries instead of guessing — entities, transitions, validation, and who can approve.",
+  "author": {
+    "name": "DNA Codes",
+    "email": "agents@dna.codes"
+  },
+  "homepage": "https://dna.codes/agents/",
+  "repository": "https://github.com/dna-codes/skills",
+  "license": "MIT",
+  "keywords": [
+    "dna",
+    "business-rules",
+    "domain-model",
+    "mcp",
+    "validation",
+    "governance",
+    "skills"
+  ],
+  "logo": "assets/logo.png",
+  "variables": {
+    "type": "object",
+    "properties": {
+      "DNA_ORG": {
+        "type": "string",
+        "title": "Organization id",
+        "description": "Workspace / sandbox org id from `npx @dna-codes/cli register` (or dna init). Substituted into the MCP URL."
+      },
+      "DNA_ACCESS_TOKEN": {
+        "type": "string",
+        "title": "Access token",
+        "description": "Bearer from `npx @dna-codes/cli register` (sandbox) or a token for the claimed Workspace. Same credential the CLI writes as DNA_ACCESS_TOKEN."
+      }
+    },
+    "required": ["DNA_ORG", "DNA_ACCESS_TOKEN"]
+  }
+}

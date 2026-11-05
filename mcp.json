@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "dna": {
+      "url": "https://agents.dna.codes/o/${DNA_ORG}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${DNA_ACCESS_TOKEN}"
+      }
+    }
+  }
+}

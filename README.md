@@ -32,7 +32,3 @@ Operational / product / technical DNA are offerings on [dna.codes](https://dna.c
 Agents that need a live DNA Workspace still run `npx @dna-codes/cli register` (or `init`) and connect MCP — see https://dna.codes/agents/
 
 Look-up mid-task (query existing DNA without authoring) uses the separate `business-rules` skill packaged with ClawHub/Hermes listings in the platform repo.
-
-## Source of truth
-
-This repository **is** the canonical skill tree. The DNA platform monorepo does not vendor a copy or submodule.

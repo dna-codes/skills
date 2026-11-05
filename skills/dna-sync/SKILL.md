@@ -1,6 +1,6 @@
 ---
 name: dna-sync
-description: Sync finished structure/v1 and behaviour/v1 documents to a DNA Workspace via the shipped MCP tools (list, get, validate, apply, diff). Use when asked to save, push, write, or apply DNA to the server after drafting. Not for discovering or inventing the model (use dna-operational), and not for looking up existing rules mid-task without writing (use business-rules).
+description: Sync finished structure/v1 and behaviour/v1 documents to a DNA Workspace via the shipped MCP authoring tools (describe, list, get, validate, apply, diff, set-egress-allowlist). Use when asked to save, push, write, or apply DNA to the server after drafting. Not for discovering or inventing the model (use dna-operational), and not for looking up existing rules mid-task without writing (use business-rules).
 ---
 
 # Sync
@@ -27,19 +27,31 @@ MCP URL shape: `https://agents.dna.codes/o/{org}/mcp` with
 `Authorization: Bearer <token>`. There is no `dna_start` and no registration MCP
 tool. Guides: https://dna.codes/agents/guides/agent-quickstart.md
 
-## Shipped tools only
+Canonical tool reference: https://dna.codes/agents/docs/tools.md
+
+## Shipped authoring tools
+
+These seven are always on `tools/list` (profile v1). Names are fixed — do not
+invent brief-style aliases.
 
 | Tool | Role |
 | --- | --- |
-| `describe` | Grammar, definition schemas, tool list |
-| `list` | Domains and behaviour present in the org |
-| `get` | Fetch a domain or behaviour document |
-| `validate` | Check a document before writing |
-| `apply` | Write DNA (governed; may need approval or claim) |
-| `diff` | Diff a document against the stored version |
-| `set-egress-allowlist` | After claim — destinations effects may leave to |
+| `describe` | Names the grammar: profile, definition schemas (structure + behaviour), and the authoring tool list. Reads nothing stored. |
+| `list` | Summarises stored domains and behaviour documents at their latest versions. |
+| `get` | Reads one stored domain or behaviour document (optional version / entity / relationship). |
+| `validate` | Checks a document against a definition (and behaviour against stored structure); writes nothing. |
+| `apply` | Writes whole domain and/or behaviour documents as one governed act (envelope with intent; `dryRun` decides and writes nothing). |
+| `diff` | Compares stored versions, or a stored version with a proposed document. |
+| `set-egress-allowlist` | Replaces the claimed organization's egress allowlist. **Person only** — agents are refused. |
 
 Do **not** call `dna_search`, `dna_describe`, or `dna_start`.
+
+### Derived business tools
+
+After behaviour DNA is applied, `tools/list` also exposes **Action ids** from
+that behaviour as additional tools (for example `check-out`). Those names come
+from DNA, not from this skill. Call `tools/list` or `describe` to see what this
+organization currently offers; never invent Action names.
 
 ## Procedure
 
@@ -62,7 +74,8 @@ as a substitute for saying what remains undecided.
 That is syncing to the server — it is **not** the agent ratifying spend, claim,
 or external acts on its own. When claim or approval is required, stop and give
 the person what they need: what changed, what it grounds in, gaps, and collisions
-with existing DNA.
+with existing DNA. External effects stay refused until claim; after claim, only
+destinations on the egress allowlist (set by a person via `set-egress-allowlist`).
 
 ## Done when
 

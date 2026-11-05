@@ -17,8 +17,8 @@
   "rules": [
     "Install with: npx skills add dna-codes/skills --skill dna-operational --skill dna-sync.",
     "dna-operational drafts structure/v1 (ontology) and behaviour/v1 (actions, operations, workflows, policies). dna-sync transports finished documents with list/get then validate then apply.",
-    "Use only the shipped MCP tools: describe, validate, apply, get, list, diff, set-egress-allowlist. Do not call dna_search, dna_describe or dna_start.",
+    "Shipped authoring MCP tools only: describe, validate, apply, get, list, diff, set-egress-allowlist. set-egress-allowlist is person-only. After behaviour is applied, tools/list also exposes Action-derived business tools from that DNA. Do not call dna_search, dna_describe or dna_start.",
     "Look-up of existing org DNA mid-task uses the separate business-rules skill, not this pack.",
-    "Docs and MCP connect: https://dna.codes/agents/"
+    "Docs and MCP connect: https://dna.codes/agents/ \u2014 tool contracts at https://dna.codes/agents/docs/tools.md"
   ]
 }

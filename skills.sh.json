@@ -1,0 +1,25 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Teaching",
+      "description": "Learn the Operational Model layer ladder before descending a real source.",
+      "skills": [
+        "programming-layers",
+        "operational-model",
+        "semantic-vocabulary"
+      ]
+    },
+    {
+      "title": "Descent",
+      "description": "Run a checked descent from a source into durable artifacts.",
+      "skills": [
+        "dna-discover",
+        "dna-extract",
+        "dna-render",
+        "dna-sync"
+      ]
+    }
+  ]
+}

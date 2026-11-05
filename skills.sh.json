@@ -3,23 +3,14 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "Teaching",
-      "description": "Learn the Operational Model layer ladder before descending a real source.",
-      "skills": [
-        "programming-layers",
-        "operational-model",
-        "semantic-vocabulary"
-      ]
+      "title": "Craft",
+      "description": "Author operational DNA as structure and behaviour documents.",
+      "skills": ["dna-operational"]
     },
     {
-      "title": "Descent",
-      "description": "Run a checked descent from a source into durable artifacts.",
-      "skills": [
-        "dna-discover",
-        "dna-extract",
-        "dna-render",
-        "dna-sync"
-      ]
+      "title": "Sync",
+      "description": "Write finished DNA documents to a Workspace over MCP.",
+      "skills": ["dna-sync"]
     }
   ]
 }

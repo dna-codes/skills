@@ -2,7 +2,7 @@
 
 [![skills.sh](https://skills.sh/b/dna-codes/skills)](https://skills.sh/dna-codes/skills)
 
-Vendor-neutral [Agent Skills](https://skills.sh) that teach and run the Operational Model descent ([OM-1](./SPEC.md)).
+Agent Skills for authoring DNA and syncing it to a Workspace.
 
 Install:
 
@@ -20,15 +20,19 @@ npx skills add dna-codes/skills --list
 
 | Skill | Role |
 | --- | --- |
-| `programming-layers` | Teaching — the full layer ladder |
-| `operational-model` | Teaching — authoring / reviewing operations |
-| `semantic-vocabulary` | Teaching — layer 2 vocabulary |
-| `dna-discover` | Descent — source → intent |
-| `dna-extract` | Descent — checked descent |
-| `dna-render` | Descent — show artifacts to a person |
-| `dna-sync` | Descent — propose into a store (never ratify) |
+| `dna-operational` | Craft — structure (`structure/v1`) + behaviour (`behaviour/v1`) for **operational** DNA |
+| `dna-sync` | Transport — `validate` / `apply` finished documents to the host |
 
-Business rules and domain model your coding agent can query instead of guessing.
-After skills install, agents that need a live DNA Workspace still run `npx @dna-codes/cli register` and connect MCP — see https://dna.codes/agents/
+Reserved for later (same pack, one brand): `dna-product`, `dna-technical`.
 
-Source of truth for these skill bodies lives in the DNA platform under `agents/skills/`; this repository is the public install surface for skills.sh.
+Operational / product / technical DNA are offerings on [dna.codes](https://dna.codes) after an org connects — not separate MCP servers.
+
+## After install
+
+Agents that need a live DNA Workspace still run `npx @dna-codes/cli register` (or `init`) and connect MCP — see https://dna.codes/agents/
+
+Look-up mid-task (query existing DNA without authoring) uses the separate `business-rules` skill packaged with ClawHub/Hermes listings in the platform repo.
+
+## Source of truth
+
+This repository **is** the canonical skill tree. The private platform checks it out as a git submodule (no second copy).

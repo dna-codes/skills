@@ -1,68 +1,73 @@
 ---
 name: dna-sync
-description: Hand a finished descent to a system that stores it — as a proposal awaiting a human decision, never as a live definition. Use when asked to save, apply, seed or push a model into a platform or graph, or when a descent is finished and somebody wants it somewhere durable. Not needed when the artifacts are only being shown or discussed; a snippet reaches no system at all.
+description: Sync finished structure/v1 and behaviour/v1 documents to a DNA Workspace via the shipped MCP tools (list, get, validate, apply, diff). Use when asked to save, push, write, or apply DNA to the server after drafting. Not for discovering or inventing the model (use dna-operational), and not for looking up existing rules mid-task without writing (use business-rules).
 ---
 
 # Sync
 
-The last step, and the one with the sharpest rule.
+Get authored operational DNA onto the organization's Workspace. This skill is
+**transport**, not craft — draft with [`dna-operational`](../dna-operational/SKILL.md)
+(or an existing document) first.
 
-## First: does this need a system at all?
+## First: does this need the server?
 
-Often not. If somebody asked what a model *would* look like, the answer is the artifacts — hand them
-back and stop. No document written, no endpoint called, nothing created that somebody now has to
-clean up.
+If someone asked what a model *would* look like, return the documents and stop.
+Reach for MCP only when asked to make the model **durable** in a Workspace.
 
-Reach for a system only when asked to make the model **durable**. Treat that as the branch it is:
-the snippet path touches nothing, and taking it by default is right more often than it feels.
+## Connect
 
-## Propose. Never ratify.
+Prefer:
 
-**Nothing you sync arrives live.** Everything lands as a proposal awaiting a human decision, in
-whatever the target's irrealis state is called — proposed, draft, pending.
+```bash
+npx @dna-codes/cli register --json
+npx @dna-codes/cli mcp
+```
 
-This is not caution, it is the division of labour the whole ladder rests on. A model proposing a
-reading of somebody's sentence is the job. A model *ratifying its own reading* is the model marking
-its own work, and the fact that it would usually be right is exactly what makes it unsafe: the
-failures are the plausible ones.
+MCP URL shape: `https://agents.dna.codes/o/{org}/mcp` with
+`Authorization: Bearer <token>`. There is no `dna_start` and no registration MCP
+tool. Guides: https://dna.codes/agents/guides/agent-quickstart.md
 
-If you are asked to activate what you just produced, say plainly that ratification is not a step you
-take, and hand over what a person needs in order to take it: what changed, what it grounds in, and
-what is still open.
+## Shipped tools only
 
-**DNA is proposed in context.** A model arriving alone is a model nobody can judge — it lands
-against everything already there, and the collisions with what exists are most of what review is
-for.
+| Tool | Role |
+| --- | --- |
+| `describe` | Grammar, definition schemas, tool list |
+| `list` | Domains and behaviour present in the org |
+| `get` | Fetch a domain or behaviour document |
+| `validate` | Check a document before writing |
+| `apply` | Write DNA (governed; may need approval or claim) |
+| `diff` | Diff a document against the stored version |
+| `set-egress-allowlist` | After claim — destinations effects may leave to |
 
-## Say what a reviewer needs to know
+Do **not** call `dna_search`, `dna_describe`, or `dna_start`.
 
-A proposal that arrives as a wall of artifacts gets rubber-stamped. With it, send:
+## Procedure
 
-- what the source was, and who said it;
-- every **gap**, and what it holds back;
-- every **deferral**, with the reason and who declared it;
-- anything already in the target that this collides with — same name, different meaning, most of
-  all.
+1. `list` (and `describe` if you need a definition schema).
+2. `get` any document you are changing — sync lands **in context** of what
+   already exists; collisions are most of what review is for.
+3. Prepare the `structure/v1` and/or `behaviour/v1` document(s). Ids stay stable.
+4. `validate`, then `apply` with the expected base versions.
+5. On `version_conflict`, `get` / `diff`, reconcile, retry.
+6. On limit refusals (`needs_claim`, `allowance_exhausted`, `plan_limit`,
+   `spend_cap_reached`), follow `refusal.next` — hand the person the claim or
+   spend path; do not invent a payment API.
 
-## Check before you send
+Optional: `dryRun` on `apply` when the host accepts it — use it to preview, not
+as a substitute for saying what remains undecided.
 
-Run the descent's checks first. Do not sync something ungrounded: a fabrication is far cheaper to
-remove from a file than from a graph other things have begun to reference.
+## Standing of what you write
 
-Refuse to send an artifact that is already marked live. If one is, something upstream skipped this
-rule, and syncing it launders the mistake.
+`apply` versions live domain and behaviour documents under host governance.
+That is syncing to the server — it is **not** the agent ratifying spend, claim,
+or external acts on its own. When claim or approval is required, stop and give
+the person what they need: what changed, what it grounds in, gaps, and collisions
+with existing DNA.
 
 ## Done when
 
-- The target holds the model in a state that requires a human decision, and nothing in an active
-  one.
-- The reviewer has the gaps, the deferrals, the provenance, and the collisions.
-- You have said what remains undecided rather than implying the work is finished.
-
-On a DNA platform, `dna-author project <descent>.json --pack <pack>` produces the seed document the
-graph accepts, and the platform's own apply surface takes it from there; nothing it emits is active,
-by construction. That command is an accelerator, not a requirement — the document is ordinary JSON
-and writing one by hand is fine.
-
-Any other target works the same way as long as the rule above holds. This step is about the standing
-of what you send, not about who receives it.
+- The Workspace holds the intended structure and/or behaviour at the versions
+  you just wrote (or a clear refusal the person must clear).
+- You cited what changed relative to the prior `get`.
+- You have not implied ratification of claim, spend caps, or external effects
+  that still need a person.

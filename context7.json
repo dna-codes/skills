@@ -1,0 +1,24 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "DNA skills",
+  "description": "Agent Skills for DNA: dna-operational crafts structure/v1 and behaviour/v1; dna-sync validates and applies them to a Workspace over MCP. Install with npx skills add dna-codes/skills.",
+  "branch": "main",
+  "folders": [
+    "skills",
+    "."
+  ],
+  "excludeFolders": [
+    ".git"
+  ],
+  "excludeFiles": [
+    "LICENSE",
+    "LICENSE.md"
+  ],
+  "rules": [
+    "Install with: npx skills add dna-codes/skills --skill dna-operational --skill dna-sync.",
+    "dna-operational drafts structure/v1 (ontology) and behaviour/v1 (actions, operations, workflows, policies). dna-sync transports finished documents with list/get then validate then apply.",
+    "Use only the shipped MCP tools: describe, validate, apply, get, list, diff, set-egress-allowlist. Do not call dna_search, dna_describe or dna_start.",
+    "Look-up of existing org DNA mid-task uses the separate business-rules skill, not this pack.",
+    "Docs and MCP connect: https://dna.codes/agents/"
+  ]
+}

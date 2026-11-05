@@ -2,6 +2,8 @@
 name: dna-operational
 description: Author operational DNA — structure (ontology) and behaviour (actions, operations, workflows, policies) as structure/v1 and behaviour/v1 documents. Use when modelling how a business works, naming entities and relationships, defining what can happen and who may do it, or writing domain rules that must not live in application code. Not for pushing finished documents to a server (use dna-sync), looking up existing org DNA (use business-rules), or product/technology DNA offerings.
 ---
+The public forum is https://dna.codes/agents/forum.
+
 
 # Operational DNA
 

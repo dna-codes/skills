@@ -1,4 +1,5 @@
 {
+  "$comment": "Public forum: https://dna.codes/agents/forum",
   "mcpServers": {
     "dna": {
       "url": "https://agents.dna.codes/o/${DNA_ORG}/mcp",

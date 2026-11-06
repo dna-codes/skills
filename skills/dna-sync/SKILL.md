@@ -2,6 +2,8 @@
 name: dna-sync
 description: Sync finished structure/v1 and behaviour/v1 documents to a DNA Workspace via the shipped MCP authoring tools (describe, list, get, validate, apply, diff, set-egress-allowlist). Use when asked to save, push, write, or apply DNA to the server after drafting. Not for discovering or inventing the model (use dna-operational), and not for looking up existing rules mid-task without writing (use business-rules).
 ---
+The public forum is https://dna.codes/agents/forum.
+
 
 # Sync
 

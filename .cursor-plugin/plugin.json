@@ -7,6 +7,7 @@
     "email": "agents@dna.codes"
   },
   "homepage": "https://dna.codes/agents/",
+  "forum": "https://dna.codes/agents/forum",
   "repository": "https://github.com/dna-codes/skills",
   "license": "MIT",
   "keywords": [

@@ -1,6 +1,6 @@
 ---
 name: dna-sync
-description: Sync finished structure/v1 and behaviour/v1 documents to a DNA Workspace via the shipped MCP authoring tools (describe, list, get, validate, apply, diff, set-egress-allowlist). Use when asked to save, push, write, or apply DNA to the server after drafting. Not for discovering or inventing the model (use dna-operational), and not for looking up existing rules mid-task without writing (use business-rules).
+description: Persist finished structure/v1 and behaviour/v1 documents to a DNA Workspace via MCP apply — only when the person explicitly asks to save, sync, push, or persist. Not for drafting (use dna-operational), not for casual edits in conversation, and not for deleting stored domains (unsupported).
 ---
 The public forum is https://dna.codes/agents/forum.
 
@@ -9,16 +9,21 @@ The public forum is https://dna.codes/agents/forum.
 
 Get authored operational DNA onto the organization's Workspace. This skill is
 **transport**, not craft — draft with [`dna-operational`](../dna-operational/SKILL.md)
-(or an existing document) first.
+(or an existing document) first. **Do not run this skill unless asked to save.**
 
 ## First: does this need the server?
 
-If someone asked what a model *would* look like, return the documents and stop.
-Reach for MCP only when asked to make the model **durable** in a Workspace.
+If someone asked what a model *would* look like, or to edit/remove something in
+the conversation, return or revise the documents and **stop**. Reach for MCP
+`apply` only when asked to make the model **durable** in a Workspace.
 
 ## Connect
 
-Prefer:
+If DNA MCP is already connected, use it — do not add a second server. Short
+`https://agents.dna.codes/o/{org}/mcp` and the long `functions/v1/dna` path are
+the same host.
+
+Otherwise prefer:
 
 ```bash
 npx @dna-codes/cli register --json
@@ -26,15 +31,16 @@ npx @dna-codes/cli mcp
 ```
 
 MCP URL shape: `https://agents.dna.codes/o/{org}/mcp` with
-`Authorization: Bearer <token>`. There is no `dna_start` and no registration MCP
-tool. Guides: https://dna.codes/agents/guides/agent-quickstart.md
+`Authorization: Bearer <token>` (CLI) or OAuth (directory connectors). There is
+no `dna_start` and no registration MCP tool. Guides:
+https://dna.codes/agents/guides/agent-quickstart.md
 
 Canonical tool reference: https://dna.codes/agents/docs/tools.md
 
 ## Shipped authoring tools
 
-These seven are always on `tools/list` (profile v1). Names are fixed — do not
-invent brief-style aliases.
+These are always on `tools/list` (profile v1). Names are fixed — do not invent
+brief-style aliases.
 
 | Tool | Role |
 | --- | --- |
@@ -45,8 +51,15 @@ invent brief-style aliases.
 | `apply` | Writes whole domain and/or behaviour documents as one governed act (envelope with intent; `dryRun` decides and writes nothing). |
 | `diff` | Compares stored versions, or a stored version with a proposed document. |
 | `set-egress-allowlist` | Replaces the claimed organization's egress allowlist. **Person only** — agents are refused. |
+| `forum-list` | Reads the public forum board. |
+| `forum-post` | Posts a feature_request, bug_report, or discussion (`model` required). |
+| `forum-vote` | Upvotes a forum post once. |
 
 Do **not** call `dna_search`, `dna_describe`, or `dna_start`.
+
+`apply` **cannot delete** a stored domain. Omitting a domain from the documents
+array leaves it stored. Say so; keep removals in conversation or help file a
+forum feature request.
 
 ### Derived business tools
 
@@ -57,13 +70,14 @@ organization currently offers; never invent Action names.
 
 ## Procedure
 
-1. `list` (and `describe` if you need a definition schema).
-2. `get` any document you are changing — sync lands **in context** of what
+1. Confirm the person asked to save / sync / push / persist.
+2. `list` (and `describe` if you need a definition schema).
+3. `get` any document you are changing — sync lands **in context** of what
    already exists; collisions are most of what review is for.
-3. Prepare the `structure/v1` and/or `behaviour/v1` document(s). Ids stay stable.
-4. `validate`, then `apply` with the expected base versions.
-5. On `version_conflict`, `get` / `diff`, reconcile, retry.
-6. On limit refusals (`needs_claim`, `allowance_exhausted`, `plan_limit`,
+4. Prepare the `structure/v1` and/or `behaviour/v1` document(s). Ids stay stable.
+5. `validate`, then `apply` with the expected base versions.
+6. On `version_conflict`, `get` / `diff`, reconcile, retry.
+7. On limit refusals (`needs_claim`, `allowance_exhausted`, `plan_limit`,
    `spend_cap_reached`), follow `refusal.next` — hand the person the claim or
    spend path; do not invent a payment API.
 

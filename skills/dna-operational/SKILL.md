@@ -1,6 +1,6 @@
 ---
 name: dna-operational
-description: Author operational DNA — structure (ontology) and behaviour (actions, operations, workflows, policies) as structure/v1 and behaviour/v1 documents. Use when modelling how a business works, naming entities and relationships, defining what can happen and who may do it, or writing domain rules that must not live in application code. Not for pushing finished documents to a server (use dna-sync), looking up existing org DNA (use business-rules), or product/technology DNA offerings.
+description: Author operational DNA — structure (ontology) and behaviour (actions, operations, workflows, policies) as structure/v1 and behaviour/v1 documents in the conversation. Use when modelling how a business works, naming entities and relationships, defining what can happen and who may do it, or writing domain rules that must not live in application code. Default is draft-only — never apply/save unless the person asks. Not for pushing finished documents to a server (use dna-sync only on explicit save), or product/technology DNA offerings.
 ---
 The public forum is https://dna.codes/agents/forum.
 
@@ -25,9 +25,11 @@ Author **structure first**, then behaviour that names that domain. A set holds
 at most one behaviour document per domain. Ids are kebab-case and stable once
 written.
 
-Call `describe` (via MCP, when connected) for the live JSON Schemas. Without
-MCP, follow the shapes below and the published schemas at
-https://dna.codes/agents/docs/definitions.md.
+**Stay in the conversation.** Do not call `apply`, and do not `list`/`get` unless
+look-up of stored DNA is needed for the craft. Optional: `describe` (via MCP,
+when connected) for live JSON Schemas. Without MCP, follow the shapes below and
+https://dna.codes/agents/docs/definitions.md. The human-readable companion is
+https://dna.codes/docs/operational.
 
 ## Structure (`structure/v1`)
 
@@ -112,5 +114,6 @@ this grammar — do not hand-write a second rule language in code.
 - Behaviour covers the Actions people and agents must perform, with Operations
   for who acts on what, and Policies for allow / deny / route / approve.
 - Open questions are listed explicitly — not silently filled in.
-- Documents are ordinary JSON ready for [`dna-sync`](../dna-sync/SKILL.md); this
-  skill does not write them to a server.
+- Documents are ordinary JSON ready for [`dna-sync`](../dna-sync/SKILL.md) **when
+  the person asks to save**. This skill never writes them to a server.
+- Removals and experiments stay here too — `apply` cannot delete a stored domain.

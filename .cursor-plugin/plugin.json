@@ -1,5 +1,5 @@
 {
-  "name": "dna",
+  "name": "dna-codes",
   "version": "1.0.0",
   "description": "Business rules and domain model your coding agent queries instead of guessing — entities, transitions, validation, and who can approve.",
   "author": {

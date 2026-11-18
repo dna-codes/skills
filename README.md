@@ -37,7 +37,7 @@ Worked examples to start from (checkout, lending, M&A diligence) and the JSON Sc
 
 ## Cursor plugin
 
-Install from the [Cursor Marketplace](https://cursor.com/marketplace) (when listed) or [cursor.directory](https://cursor.directory), or copy this repo into `~/.cursor/plugins/local/dna`.
+Install from the [Cursor Marketplace](https://cursor.com/marketplace) (when listed) or [cursor.directory](https://cursor.directory), or copy this repo into `~/.cursor/plugins/local/dna-codes`.
 
 Configure:
 

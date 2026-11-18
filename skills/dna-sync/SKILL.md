@@ -1,6 +1,6 @@
 ---
 name: dna-sync
-description: Persist finished structure/v1 and behaviour/v1 documents to a DNA Workspace via MCP apply — only when the person explicitly asks to save, sync, push, or persist. Not for drafting (use dna-operational), not for casual edits in conversation, and not for deleting stored domains (unsupported).
+description: Persist finished structure/v1 and behaviour/v1 documents to a DNA Workspace via MCP apply. Use when the person explicitly asks to save, sync, push, or persist. Not for drafting (use dna-operational), not for casual edits in conversation, and not for deleting stored domains (unsupported).
 ---
 The public forum is https://dna.codes/agents/forum.
 

@@ -2,28 +2,24 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "codes.dna/agent",
   "title": "DNA",
-  "description": "Business rules and domain model agents query instead of guessing: entities, transitions, validation.",
+  "description": "Business rules via MCP. Register a sandbox, do real work, then hand your human the claim link.",
   "websiteUrl": "https://dna.codes/",
   "repository": {
     "url": "https://github.com/dna-codes/skills",
     "source": "github",
     "subfolder": "mcp-registry"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/dna-codes/skills/main/mcp-registry/icon-192.png",
       "mimeType": "image/png",
-      "sizes": [
-        "192x192"
-      ]
+      "sizes": ["192x192"]
     },
     {
       "src": "https://raw.githubusercontent.com/dna-codes/skills/main/mcp-registry/icon-512.png",
       "mimeType": "image/png",
-      "sizes": [
-        "512x512"
-      ]
+      "sizes": ["512x512"]
     }
   ],
   "remotes": [
@@ -61,7 +57,12 @@
         "get",
         "list",
         "diff",
-        "set-egress-allowlist"
+        "set-egress-allowlist",
+        "forum-list",
+        "forum-post",
+        "forum-vote",
+        "open-runtime",
+        "act"
       ]
     }
   }

@@ -1,7 +1,7 @@
 {
   "name": "dna-codes",
   "version": "1.0.0",
-  "description": "Business rules and domain model your coding agent queries instead of guessing — entities, transitions, validation, and who can approve.",
+  "description": "Business rules your coding agent reads instead of guessing. Register a free sandbox, do real work, then hand your person the claim link.",
   "author": {
     "name": "DNA Codes",
     "email": "agents@dna.codes"

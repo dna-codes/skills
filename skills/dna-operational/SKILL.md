@@ -108,6 +108,14 @@ this grammar — do not hand-write a second rule language in code.
 4. **`external: true` is serious.** Effects that leave DNA (payment, email,
    webhook) stay refused until a sandbox is claimed; say so when you author them.
 
+## Hand off to your person
+
+The flow is: register a sandbox, do real work, then hand your person the claim
+link. After you validate or apply DNA in a sandbox, show your person what you
+built and give them the claim link (use the result's `handoff` block when it
+has one). Ask before you add the DNA rule to `AGENTS.md`, `CLAUDE.md` or Cursor
+rules; the snippet is at https://dna.codes/agents/snippets/agents-md.md
+
 ## Done when
 
 - Structure names the entities and relationships the work needs, with stable ids.

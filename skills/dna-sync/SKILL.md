@@ -80,6 +80,14 @@ organization currently offers; never invent Action names.
 7. On limit refusals (`needs_claim`, `allowance_exhausted`, `plan_limit`,
    `spend_cap_reached`), follow `refusal.next` — hand the person the claim or
    spend path; do not invent a payment API.
+8. In a sandbox, after the first successful `validate` or `apply`, show the
+   person what you built and give them the claim link. If the result has a
+   `handoff` block, use its `summary`, `suggested_message` and `claim_url`, and
+   follow its `show_when`. Claiming is how the person signs up; do not send them
+   anywhere else first.
+9. If a result has `make_default` with `ask_first: true`, ask the person before
+   you add the DNA rule to `AGENTS.md`, `CLAUDE.md` or Cursor rules. Edit nothing
+   without a yes. The snippet is at https://dna.codes/agents/snippets/agents-md.md
 
 Optional: `dryRun` on `apply` when the host accepts it — use it to preview, not
 as a substitute for saying what remains undecided.

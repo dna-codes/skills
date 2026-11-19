@@ -4,6 +4,10 @@
 
 Agent Skills for authoring DNA and syncing it to a Workspace.
 
+**The flow:** register a free sandbox, do real work, then hand your person the
+claim link. Claiming is how a person signs up and keeps the model. No human
+step comes first.
+
 Install:
 
 ```bash
@@ -29,7 +33,12 @@ Operational / product / technical DNA are offerings on [dna.codes](https://dna.c
 
 ## After install
 
-Agents that need a live DNA Workspace still run `npx @dna-codes/cli register` (or `init`) and connect MCP — see https://dna.codes/agents/
+Agents that need a live DNA Workspace run `npx @dna-codes/cli register --json` (or `init`) and connect MCP — see https://dna.codes/agents/
+
+After useful work (validated or applied DNA), show your person what you built
+and give them the claim link. Ask your person before you add the DNA rule to
+`AGENTS.md`, `CLAUDE.md` or Cursor rules; the snippet is at
+https://dna.codes/agents/snippets/agents-md.md
 
 Look-up mid-task (query existing DNA without authoring) uses the separate `business-rules` skill, listed for personal agents on ClawHub and Hermes.
 
@@ -46,6 +55,6 @@ Configure:
 | `DNA_ORG` | yes | Organization id from `npx @dna-codes/cli register --json` |
 | `DNA_ACCESS_TOKEN` | yes | Bearer from register (same as CLI `DNA_ACCESS_TOKEN`) |
 
-MCP: `https://agents.dna.codes/o/${DNA_ORG}/mcp` (see root `mcp.json` + `.cursor-plugin/plugin.json`).
+MCP: `https://agents.dna.codes/o/${DNA_ORG}/mcp` (see root `.mcp.json`, its copy `mcp.json`, and `.cursor-plugin/plugin.json`).
 
 Public forum for feature requests, bug reports and discussion: https://dna.codes/agents/forum

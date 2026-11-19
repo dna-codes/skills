@@ -1,6 +1,11 @@
+<p align="center"><a href="https://dna.codes"><img src="https://raw.githubusercontent.com/dna-codes/skills/main/assets/logo.png" width="88" alt="DNA Codes"></a></p>
+
 # DNA skills (`dna-codes/skills`)
 
 [![skills.sh](https://skills.sh/b/dna-codes/skills)](https://skills.sh/dna-codes/skills)
+[![npm](https://img.shields.io/npm/v/@dna-codes/cli?label=%40dna-codes%2Fcli)](https://www.npmjs.com/package/@dna-codes/cli)
+[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-codes.dna%2Fagent-0f766e)](https://registry.modelcontextprotocol.io/v0/servers?search=codes.dna/agent)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
 Agent Skills for authoring DNA and syncing it to a Workspace.
 

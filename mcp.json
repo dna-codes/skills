@@ -1,11 +1,8 @@
 {
-  "$comment": "Public forum: https://dna.codes/agents/forum",
+  "$comment": "One MCP URL with OAuth: the person signs in, picks a Workspace or starts a sandbox, and allows access. Public forum: https://dna.codes/agents/forum",
   "mcpServers": {
     "dna": {
-      "url": "https://agents.dna.codes/o/${DNA_ORG}/mcp",
-      "headers": {
-        "Authorization": "Bearer ${DNA_ACCESS_TOKEN}"
-      }
+      "url": "https://agents.dna.codes/mcp"
     }
   }
 }

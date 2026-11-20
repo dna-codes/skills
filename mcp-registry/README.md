@@ -3,14 +3,17 @@
 Public icons and notes for the official MCP Registry listing
 [`codes.dna/agent`](https://registry.modelcontextprotocol.io/?q=codes.dna).
 
-The MCP endpoint is remote-only:
+The MCP endpoint is remote-only, at two URLs:
 
 ```
-https://agents.dna.codes/o/{org}/mcp
+https://agents.dna.codes/mcp            # people: sign in, pick a Workspace or start a sandbox
+https://agents.dna.codes/o/{org}/mcp    # agents: the URL a registered sandbox's token is for
 ```
 
-Register a sandbox first (`npx @dna-codes/cli register --json`), then connect
-with its bearer token. Do real work, then hand your person the claim link.
+A person connects the first URL from any client that supports MCP OAuth (Claude
+Code, Cursor, ...). An agent registers a sandbox first (`npx @dna-codes/cli
+register --json`) and connects the second URL with its bearer token. Do real
+work, then hand your person the claim link.
 Claiming is how a person signs up and keeps the model. Craft/sync skills for the same product live in this repository
 (`dna-operational`, `dna-sync`).
 

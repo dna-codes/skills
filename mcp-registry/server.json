@@ -9,20 +9,28 @@
     "source": "github",
     "subfolder": "mcp-registry"
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/dna-codes/skills/main/mcp-registry/icon-192.png",
       "mimeType": "image/png",
-      "sizes": ["192x192"]
+      "sizes": [
+        "192x192"
+      ]
     },
     {
       "src": "https://raw.githubusercontent.com/dna-codes/skills/main/mcp-registry/icon-512.png",
       "mimeType": "image/png",
-      "sizes": ["512x512"]
+      "sizes": [
+        "512x512"
+      ]
     }
   ],
   "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://agents.dna.codes/mcp"
+    },
     {
       "type": "streamable-http",
       "url": "https://agents.dna.codes/o/{org}/mcp",

@@ -37,23 +37,24 @@ https://dna.codes/agents/guides/agent-quickstart.md
 
 Canonical tool reference: https://dna.codes/agents/docs/tools.md
 
-## Shipped authoring tools
+## Shipped tools
 
-These are always on `tools/list` (profile v1). Names are fixed — do not invent
-brief-style aliases.
+These are always on `tools/list` (profile 2). Names are fixed — do not invent
+brief-style aliases. Each description starts with its mode: **Design** changes
+what the business is; **Run** works inside it. This skill uses the Design tools.
 
-| Tool | Role |
-| --- | --- |
-| `describe` | Names the grammar: profile, definition schemas (structure + behaviour), and the authoring tool list. Reads nothing stored. |
-| `list` | Summarises stored domains and behaviour documents at their latest versions. |
-| `get` | Reads one stored domain or behaviour document (optional version / entity / relationship). |
-| `validate` | Checks a document against a definition (and behaviour against stored structure); writes nothing. |
-| `apply` | Writes whole domain and/or behaviour documents as one governed act (envelope with intent; `dryRun` decides and writes nothing). |
-| `diff` | Compares stored versions, or a stored version with a proposed document. |
-| `set-egress-allowlist` | Replaces the claimed organization's egress allowlist. **Person only** — agents are refused. |
-| `forum-list` | Reads the public forum board. |
-| `forum-post` | Posts a feature_request, bug_report, or discussion (`model` required). |
-| `forum-vote` | Upvotes a forum post once. |
+| Tool | Mode | Role |
+| --- | --- | --- |
+| `grammar` | Design | Names the grammar: profile, definition schemas (structure + behaviour), and the tools with their modes. Reads nothing stored. |
+| `model` | Design | Reads the stored model: with no domain, a summary of every domain and behaviour document; with `domain` or `behaviour`, one document (optional version / entity / relationship); with `since`, the changes between versions. |
+| `apply` | Design | Writes whole domain and/or behaviour documents as one governed act (envelope with intent). With `dryRun` it checks the documents, names every issue and the changes it would make, and writes nothing. |
+| `set-egress-allowlist` | Design | Replaces the claimed organization's egress allowlist. **Person only** — agents are refused. |
+| `inbox` | Run | Lists what waits on the caller: records it may act on, and approvals it may decide. |
+| `query` | Run | Reads records by domain, entity, state or id. |
+| `act` | Run | Decides a pending approval: `approve` or `decline`. |
+| `forum-list` | — | Reads the public forum board. |
+| `forum-post` | — | Posts a feature_request, bug_report, or discussion (`model` required). |
+| `forum-vote` | — | Upvotes a forum post once. |
 
 Do **not** call `dna_search`, `dna_describe`, or `dna_start`.
 
@@ -63,24 +64,27 @@ forum feature request.
 
 ### Derived business tools
 
-After behaviour DNA is applied, `tools/list` also exposes **Action ids** from
-that behaviour as additional tools (for example `check-out`). Those names come
-from DNA, not from this skill. Call `tools/list` or `describe` to see what this
-organization currently offers; never invent Action names.
+After behaviour DNA is applied, `tools/list` also exposes each Action as a Run
+tool named `{domain}-{action}` (for example `commerce-check-out`). Those names
+come from DNA, not from this skill. Call `tools/list` or `grammar` to see what
+this organization currently offers; never invent Action names.
 
 ## Procedure
 
 1. Confirm the person asked to save / sync / push / persist.
-2. `list` (and `describe` if you need a definition schema).
-3. `get` any document you are changing — sync lands **in context** of what
-   already exists; collisions are most of what review is for.
+2. `model` (and `grammar` if you need a definition schema).
+3. `model` with the `domain` or `behaviour` of any document you are changing —
+   sync lands **in context** of what already exists; collisions are most of
+   what review is for.
 4. Prepare the `structure/v1` and/or `behaviour/v1` document(s). Ids stay stable.
-5. `validate`, then `apply` with the expected base versions.
-6. On `version_conflict`, `get` / `diff`, reconcile, retry.
+5. `apply` with `dryRun` to check the documents, then `apply` with the expected
+   base versions.
+6. On `version_conflict`, read the current version with `model`, dry-run your
+   documents against it, reconcile, retry.
 7. On limit refusals (`needs_claim`, `allowance_exhausted`, `plan_limit`,
    `spend_cap_reached`), follow `refusal.next` — hand the person the claim or
    spend path; do not invent a payment API.
-8. In a sandbox, after the first successful `validate` or `apply`, show the
+8. In a sandbox, after the first successful dry run or `apply`, show the
    person what you built and give them the claim link. If the result has a
    `handoff` block, use its `summary`, `suggested_message` and `claim_url`, and
    follow its `show_when`. Claiming is how the person signs up; do not send them
@@ -89,8 +93,9 @@ organization currently offers; never invent Action names.
    you add the DNA rule to `AGENTS.md`, `CLAUDE.md` or Cursor rules. Edit nothing
    without a yes. The snippet is at https://dna.codes/agents/snippets/agents-md.md
 
-Optional: `dryRun` on `apply` when the host accepts it — use it to preview, not
-as a substitute for saying what remains undecided.
+A dry run previews; it is not a substitute for saying what remains undecided.
+A single entity or attribute can be checked locally against the schema
+`grammar` returns for its definition.
 
 ## Standing of what you write
 
@@ -105,6 +110,6 @@ destinations on the egress allowlist (set by a person via `set-egress-allowlist`
 
 - The Workspace holds the intended structure and/or behaviour at the versions
   you just wrote (or a clear refusal the person must clear).
-- You cited what changed relative to the prior `get`.
+- You cited what changed relative to the prior `model` read.
 - You have not implied ratification of claim, spend caps, or external effects
   that still need a person.

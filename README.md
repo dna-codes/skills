@@ -30,7 +30,7 @@ npx skills add dna-codes/skills --list
 | Skill | Role |
 | --- | --- |
 | `dna-operational` | Craft — structure (`structure/v1`) + behaviour (`behaviour/v1`) for **operational** DNA |
-| `dna-sync` | Transport — `validate` / `apply` finished documents to the host |
+| `dna-sync` | Transport — dry-run and `apply` finished documents to the host |
 
 Reserved for later (same pack, one brand): `dna-product`, `dna-technical`.
 

@@ -9,7 +9,7 @@
     "source": "github",
     "subfolder": "mcp-registry"
   },
-  "version": "1.0.4",
+  "version": "1.1.0",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/dna-codes/skills/main/mcp-registry/icon-192.png",
@@ -59,18 +59,16 @@
       "skills": "https://github.com/dna-codes/skills",
       "skillsInstall": "npx skills add dna-codes/skills --skill dna-operational --skill dna-sync",
       "tools": [
-        "describe",
-        "validate",
+        "grammar",
+        "model",
         "apply",
-        "get",
-        "list",
-        "diff",
+        "inbox",
+        "query",
+        "act",
         "set-egress-allowlist",
         "forum-list",
         "forum-post",
-        "forum-vote",
-        "open-runtime",
-        "act"
+        "forum-vote"
       ]
     }
   }

@@ -25,8 +25,9 @@ Author **structure first**, then behaviour that names that domain. A set holds
 at most one behaviour document per domain. Ids are kebab-case and stable once
 written.
 
-**Stay in the conversation.** Do not call `apply`, and do not `list`/`get` unless
-look-up of stored DNA is needed for the craft. Optional: `describe` (via MCP,
+**Stay in the conversation.** Do not call `apply` without `dryRun`, and do not
+read `model` unless look-up of stored DNA is needed for the craft. Optional:
+`grammar` (via MCP,
 when connected) for live JSON Schemas. Without MCP, follow the shapes below and
 https://dna.codes/agents/docs/definitions.md. The human-readable companion is
 https://dna.codes/docs/operational.

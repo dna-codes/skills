@@ -40,6 +40,15 @@ Operational / product / technical DNA are offerings on [dna.codes](https://dna.c
 
 Agents that need a live DNA Workspace run `npx @dna-codes/cli register --json` (or `init`) and connect MCP — see https://dna.codes/agents/
 
+A person can also connect their own client to one URL and sign in:
+
+```bash
+claude mcp add --transport http dna https://agents.dna.codes/mcp
+```
+
+The client opens a sign-in (Google or GitHub). Pick a Workspace or start a new
+sandbox, then allow access. This works in any client that supports MCP OAuth.
+
 After useful work (validated or applied DNA), show your person what you built
 and give them the claim link. Ask your person before you add the DNA rule to
 `AGENTS.md`, `CLAUDE.md` or Cursor rules; the snippet is at
@@ -61,5 +70,7 @@ Configure:
 | `DNA_ACCESS_TOKEN` | yes | Bearer from register (same as CLI `DNA_ACCESS_TOKEN`) |
 
 MCP: `https://agents.dna.codes/o/${DNA_ORG}/mcp` (see root `.mcp.json`, its copy `mcp.json`, and `.cursor-plugin/plugin.json`).
+
+Without a registered sandbox, point Cursor at `https://agents.dna.codes/mcp` instead and sign in; no variables are needed.
 
 Public forum for feature requests, bug reports and discussion: https://dna.codes/agents/forum

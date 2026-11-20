@@ -28,7 +28,8 @@ written.
 **Stay in the conversation.** Do not call `apply` without `dryRun`, and do not
 read `model` unless look-up of stored DNA is needed for the craft. Optional:
 `grammar` (via MCP,
-when connected) for live JSON Schemas. Without MCP, follow the shapes below and
+when connected) for live JSON Schemas. To show a person stored DNA as a diagram,
+call `render` and show its `rendering` exactly as returned; do not draw your own. Without MCP, follow the shapes below and
 https://dna.codes/agents/docs/definitions.md. The human-readable companion is
 https://dna.codes/docs/operational.
 

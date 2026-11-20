@@ -17,8 +17,9 @@
   "rules": [
     "Install with: npx skills add dna-codes/skills --skill dna-operational --skill dna-sync.",
     "dna-operational drafts structure/v1 (ontology) and behaviour/v1 (actions, operations, workflows, policies). dna-sync transports finished documents: read with model, dry-run apply, then apply.",
-    "Shipped MCP tools only (profile 2): Design grammar, model, apply, set-egress-allowlist; Run inbox, query, act. set-egress-allowlist is person-only. After behaviour is applied, tools/list also exposes one business tool per Action, named {domain}-{action}. Do not call dna_search, dna_describe or dna_start.",
+    "Shipped MCP tools only (profile 2): Design grammar, model, apply, render, set-egress-allowlist; Run inbox, query, act. set-egress-allowlist is person-only. After behaviour is applied, tools/list also exposes one business tool per Action, named {domain}-{action}. Do not call dna_search, dna_describe or dna_start.",
     "Look-up of existing org DNA mid-task uses the separate business-rules skill, not this pack.",
-    "Docs and MCP connect: https://dna.codes/agents/ \u2014 tool contracts at https://dna.codes/agents/docs/tools.md"
+    "Docs and MCP connect: https://dna.codes/agents/ \u2014 tool contracts at https://dna.codes/agents/docs/tools.md",
+    "render draws the stored model: show its rendering (Mermaid or a Markdown table) exactly as returned and do not redraw it; shape carries the same graph or table as data."
   ]
 }

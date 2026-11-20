@@ -1,7 +1,7 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
   "projectTitle": "DNA skills",
-  "description": "Agent Skills for DNA: dna-operational crafts structure/v1 and behaviour/v1; dna-sync validates and applies them to a Workspace over MCP. Install with npx skills add dna-codes/skills.",
+  "description": "Agent Skills for DNA: dna-operational crafts structure/v1 and behaviour/v1; dna-sync dry-runs and applies them to a Workspace over MCP. Install with npx skills add dna-codes/skills.",
   "branch": "main",
   "folders": [
     "skills",
@@ -16,8 +16,8 @@
   ],
   "rules": [
     "Install with: npx skills add dna-codes/skills --skill dna-operational --skill dna-sync.",
-    "dna-operational drafts structure/v1 (ontology) and behaviour/v1 (actions, operations, workflows, policies). dna-sync transports finished documents with list/get then validate then apply.",
-    "Shipped authoring MCP tools only: describe, validate, apply, get, list, diff, set-egress-allowlist. set-egress-allowlist is person-only. After behaviour is applied, tools/list also exposes Action-derived business tools from that DNA. Do not call dna_search, dna_describe or dna_start.",
+    "dna-operational drafts structure/v1 (ontology) and behaviour/v1 (actions, operations, workflows, policies). dna-sync transports finished documents: read with model, dry-run apply, then apply.",
+    "Shipped MCP tools only (profile 2): Design grammar, model, apply, set-egress-allowlist; Run inbox, query, act. set-egress-allowlist is person-only. After behaviour is applied, tools/list also exposes one business tool per Action, named {domain}-{action}. Do not call dna_search, dna_describe or dna_start.",
     "Look-up of existing org DNA mid-task uses the separate business-rules skill, not this pack.",
     "Docs and MCP connect: https://dna.codes/agents/ \u2014 tool contracts at https://dna.codes/agents/docs/tools.md"
   ]

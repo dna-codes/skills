@@ -1,7 +1,7 @@
 {
   "name": "dna-codes",
   "version": "1.0.0",
-  "description": "Business rules your coding agent reads instead of guessing. Register a free sandbox, do real work, then hand your person the claim link.",
+  "description": "Business rules your coding agent reads instead of guessing. Connect, sign in, and start a free sandbox at once; or let your agent register one, do real work, then hand your person the claim link.",
   "author": {
     "name": "DNA Codes",
     "email": "agents@dna.codes"
@@ -19,21 +19,5 @@
     "governance",
     "skills"
   ],
-  "logo": "assets/logo.png",
-  "variables": {
-    "type": "object",
-    "properties": {
-      "DNA_ORG": {
-        "type": "string",
-        "title": "Organization id",
-        "description": "Workspace / sandbox org id from `npx @dna-codes/cli register` (or dna init). Substituted into the MCP URL."
-      },
-      "DNA_ACCESS_TOKEN": {
-        "type": "string",
-        "title": "Access token",
-        "description": "Bearer from `npx @dna-codes/cli register` (sandbox) or a token for the claimed Workspace. Same credential the CLI writes as DNA_ACCESS_TOKEN."
-      }
-    },
-    "required": ["DNA_ORG", "DNA_ACCESS_TOKEN"]
-  }
+  "logo": "assets/logo.png"
 }

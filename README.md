@@ -49,7 +49,7 @@ claude mcp add --transport http dna https://agents.dna.codes/mcp
 The client opens a sign-in (Google or GitHub). Pick a Workspace or start a new
 sandbox, then allow access. This works in any client that supports MCP OAuth.
 
-After useful work (validated or applied DNA), show your person what you built
+After useful work (a clean dry run or applied DNA), show your person what you built
 and give them the claim link. Ask your person before you add the DNA rule to
 `AGENTS.md`, `CLAUDE.md` or Cursor rules; the snippet is at
 https://dna.codes/agents/snippets/agents-md.md
@@ -62,15 +62,8 @@ Worked examples to start from (checkout, lending, M&A diligence) and the JSON Sc
 
 Install from the [Cursor Marketplace](https://cursor.com/marketplace) (when listed) or [cursor.directory](https://cursor.directory), or copy this repo into `~/.cursor/plugins/local/dna-codes`.
 
-Configure:
+The plugin connects to one MCP URL, `https://agents.dna.codes/mcp`, with nothing to set (see `mcp.json` and `.cursor-plugin/plugin.json`). Cursor opens the sign-in page the first time a DNA tool runs: sign in with Google or GitHub, pick a Workspace or start a sandbox, and allow access. A new person gets a sandbox at once and sees its claim link once.
 
-| Variable | Required | Meaning |
-| --- | --- | --- |
-| `DNA_ORG` | yes | Organization id from `npx @dna-codes/cli register --json` |
-| `DNA_ACCESS_TOKEN` | yes | Bearer from register (same as CLI `DNA_ACCESS_TOKEN`) |
-
-MCP: `https://agents.dna.codes/o/${DNA_ORG}/mcp` (see root `.mcp.json`, its copy `mcp.json`, and `.cursor-plugin/plugin.json`).
-
-Without a registered sandbox, point Cursor at `https://agents.dna.codes/mcp` instead and sign in; no variables are needed.
+An agent with no browser can still register a sandbox (`npx @dna-codes/cli register --json`) and use `https://agents.dna.codes/o/{org}/mcp` with its bearer token. That token is refused at `https://agents.dna.codes/mcp`. Add one DNA server per client, not both.
 
 Public forum for feature requests, bug reports and discussion: https://dna.codes/agents/forum

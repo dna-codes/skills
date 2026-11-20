@@ -19,7 +19,7 @@ Claiming is how a person signs up and keeps the model. Craft/sync skills for the
 
 ## Shipped tools (always on `tools/list`)
 
-`grammar`, `model`, `apply`, `inbox`, `query`, `act`, `set-egress-allowlist`,
+`grammar`, `model`, `apply`, `render`, `inbox`, `query`, `act`, `set-egress-allowlist`,
 `forum-list`, `forum-post`, `forum-vote`
 
 - Full contracts: https://dna.codes/agents/docs/tools.md

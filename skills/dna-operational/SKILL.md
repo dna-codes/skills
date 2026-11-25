@@ -96,6 +96,7 @@ A behaviour document describes **one** structure domain.
   "name": "Commerce behaviour",
   "description": "What commerce allows.",
   "domain": "commerce",
+  "roles": [{ "id": "merchant", "name": "Merchant", "description": "The store that sells and ships." }],
   "actions": [],
   "operations": [],
   "workflows": [],
@@ -103,22 +104,55 @@ A behaviour document describes **one** structure domain.
 }
 ```
 
+### Roles: who can and who does
+
+A **role** is a kind of participant in the domain (`underwriter`, `target`,
+`merchant`), declared once in `roles` as `{ id, name, description? }`. A role
+never names a firm or a person: which party or agent fills it is the
+organization's fleet, not the domain.
+
+- **Can do:** an Action's `actors` lists the role ids that may perform it, and
+  it is enforced. Anyone outside them is refused before policies run. Omit it
+  when anyone the policies allow may act.
+- **Does:** an Operation's `actor` is the one role id that performs it in a
+  workflow.
+- In a condition, `{ "role": "senior-underwriter" }` holds when the principal
+  fills that role. A `route` or `require_approval` effect names roles:
+  `{ "effect": "require_approval", "performer": "role", "refs": ["committee"] }`.
+
 ### Action
 
 One capability of one entity: inputs, outputs, whether it is `readOnly`,
-whether it is `external` (reaches outside DNA), and optional `transition`
-(`from` → `to` on the entity's state). Complete enough to become a tool —
-every surface that calls it is derived from it.
+whether it is `external` (reaches outside DNA), optional `actors`, and optional
+`transition` (`from` → `to` on the entity's state). Complete enough to become a
+tool — every surface that calls it is derived from it. Its outcome is the
+entity's new state (`approve` leaves a loan `approved`): write no separate
+"done" wording.
 
 ### Operation
 
-One Action, performed by one **actor** on one **target** (target defaults to
-the Action's entity). Workflows are written over Operations so the same Action
-can appear twice with different performers.
+One Action, performed by one **actor** (a role id) on one **target** (target
+defaults to the Action's entity). Workflows are written over Operations so the
+same Action can appear twice with different performers.
 
 ### Workflow
 
-A sequence (or graph) of Operations for a multi-step process.
+A state machine over Operations for a multi-step process.
+
+- **Name each state by its work or its outcome.** A state that is not final is
+  the work done in it, a verb and a noun ("Review findings"). A final state is
+  the outcome ("Signed off"). Ids stay short and never change.
+- **`mainPath`** lists the state ids of the usual path, from `initial`, each
+  reachable from the one before. It may end at a long-lived state that is not
+  final (`production`).
+- **Sub-workflow:** a state with `workflow` runs another workflow of the same
+  document, and a transition whose `on` names it waits for it to end. Guard on
+  how it ended with `"when": { "final": "unusable" }`.
+- **Parallel work:** a state with `workflows` (two or more) runs them at the
+  same time. A transition guarded by `"when": { "workflow": "credit", "final":
+  "unusable" }` leaves as soon as that one ends that way and stops the others.
+  An unguarded transition on a region waits for all of them. Put guarded
+  transitions first. The state's own Operations (a withdrawal) leave at once.
 
 ### Policy (who may do what, and business rules)
 
@@ -158,7 +192,8 @@ hand-write a second rule language in code.
   `require_approval`, then `allow`. A narrower allow cannot undo a wider deny or
   approval. Write an exception on the policy it relaxes, as a `not` in its
   `when`.
-- `route` allows the act and names who performs it. When routes compete, the
+- `route` allows the act and names who performs it. In a domain, route to a
+  role, never to a named agent or person. When routes compete, the
   deepest target wins, then the higher integer `priority`. `priority` has no
   other use.
 

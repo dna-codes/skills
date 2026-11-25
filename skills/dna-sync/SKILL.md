@@ -19,20 +19,24 @@ the conversation, return or revise the documents and **stop**. Reach for MCP
 
 ## Connect
 
-If DNA MCP is already connected, use it — do not add a second server. Short
-`https://agents.dna.codes/o/{org}/mcp` and the long `functions/v1/dna` path are
-the same host.
+If DNA MCP is already connected, use it — do not add a second server.
+`https://agents.dna.codes/mcp`, the short `https://agents.dna.codes/o/{org}/mcp` and the long
+`functions/v1/dna` path are the same host.
 
-Otherwise prefer:
+A person connects without registering first: add `https://agents.dna.codes/mcp`, sign in with
+Google or GitHub, pick a Workspace or start a sandbox, and allow access. A new person gets a
+sandbox at once and sees its claim link once. The token names the Workspace they picked.
+
+An agent with no browser may still register a sandbox first:
 
 ```bash
 npx @dna-codes/cli register --json
 npx @dna-codes/cli mcp
 ```
 
-MCP URL shape: `https://agents.dna.codes/o/{org}/mcp` with
-`Authorization: Bearer <token>` (CLI) or OAuth (directory connectors). There is
-no `dna_start` and no registration MCP tool. Guides:
+That gives `https://agents.dna.codes/o/{org}/mcp` with `Authorization: Bearer <token>`. The
+register token works only at that per-organization URL; `https://agents.dna.codes/mcp` refuses it.
+There is no `dna_start` and no registration MCP tool. Guides:
 https://dna.codes/agents/guides/agent-quickstart.md
 
 Canonical tool reference: https://dna.codes/agents/docs/tools.md

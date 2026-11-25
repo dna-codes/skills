@@ -19,7 +19,8 @@ skill is only operational DNA: what the business is made of, and what it does.
 | Kind | `dna` | Owns |
 | --- | --- | --- |
 | Structure | `structure/v1` | Domain vocabulary — entities, attributes, relationships |
-| Behaviour | `behaviour/v1` | What that domain does — Actions, Operations, Workflows, Policies |
+| Behaviour | `behaviour/v1` | What that domain does — Actions, Operations, Workflows, Policies, Defaults |
+| Access | `access/v1` | Who may do what at the organization or one workspace — groups (organization only), policies, defaults (experimental) |
 
 Author **structure first**, then behaviour that names that domain. A set holds
 at most one behaviour document per domain. Ids are kebab-case and stable once
@@ -58,6 +59,32 @@ one deal can share a `parties` vocabulary and differ by instances.
 
 Do not put Actions, policies, or workflows in a structure document.
 
+### Extending another domain's entity
+
+An entity has **one** owning domain. Never declare `customer` twice. When a
+domain needs more facts about an entity another domain owns, name that domain
+in `uses` and declare an **extension**:
+
+```json
+"extensions": [
+  {
+    "entity": "customers/customer",
+    "description": "A customer as lending sees them.",
+    "attributes": [
+      { "name": "creditProfile", "type": "enum", "values": ["prime", "near-prime", "subprime"] }
+    ]
+  }
+]
+```
+
+- An extension attribute is never a `state`, and never repeats a name the
+  owner (or another extension of that entity) already uses.
+- This domain's behaviour may declare Actions on the extended entity that change
+  **only** the extension's attributes.
+- To change the owner's attributes or state, declare an Operation on an Action
+  the owner declares (`customers/customer.flag-risk`), or let the owner react to
+  an event. Never add an Action to another domain's entity.
+
 ## Behaviour (`behaviour/v1`)
 
 A behaviour document describes **one** structure domain.
@@ -93,11 +120,105 @@ can appear twice with different performers.
 
 A sequence (or graph) of Operations for a multi-step process.
 
-### Policy
+### Policy (who may do what, and business rules)
 
-A decision on named Actions: `allow`, `deny`, `route`, or `require_approval`,
-optionally `when` a condition holds. Permissions and business validation share
-this grammar — do not hand-write a second rule language in code.
+Every rule is one policy: `{ id, description, target?, actions, when?, effect,
+priority? }`. Permissions and business validation share this grammar — do not
+hand-write a second rule language in code.
+
+```json
+{
+  "id": "editors-release-titles",
+  "description": "Editors, and agents acting for one, read and release titles.",
+  "target": "distribution/title",
+  "actions": ["run:read", "release"],
+  "when": { "anyOf": [
+    { "group": "editors" },
+    { "allOf": [
+      { "subject": "actor", "path": "kind", "op": "eq", "value": "agent" },
+      { "group": "editors", "principal": "actingFor" }
+    ] }
+  ] },
+  "effect": { "effect": "allow" }
+}
+```
+
+- `target` is what the policy applies to, relative to the workspace: a domain
+  (`distribution`) or an entity (`distribution/title`). It covers everything
+  under it. Omit it to mean the document's home (its domain, workspace or
+  organization). Never a record id, never an Action. Cedar and IAM call
+  `target` the `resource`.
+- `actions` lists named Actions (`release`, or `behaviour-id/release` from a
+  document this one uses), the built-in action groups, or both. The groups are
+  fixed: `design:read` / `design:write` (the model), `run:read` / `run:write`
+  (records), and `administer` (policies and defaults at or under the target).
+  A Design right gives no Run right, and the reverse.
+- `effect` is `allow`, `deny`, `route` or `require_approval`. Every applicable
+  policy counts, at any target, and the most restrictive wins: `deny`, then
+  `require_approval`, then `allow`. A narrower allow cannot undo a wider deny or
+  approval. Write an exception on the policy it relaxes, as a `not` in its
+  `when`.
+- `route` allows the act and names who performs it. When routes compete, the
+  deepest target wins, then the higher integer `priority`. `priority` has no
+  other use.
+
+### Conditions
+
+`when` is closed: predicates, `allOf`, `anyOf`, `not`, and three more forms.
+No expressions.
+
+- **Group:** `{ "group": "editors" }`, or with `"principal": "actingFor"` to test
+  the person or organization an agent acts for. Groups are defined only in the
+  organization access document.
+- **Path reference:** a predicate's `value` may read another path instead of a
+  literal: `{ "subject": "actor", "path": "id", "op": "neq", "value": {
+  "subject": "target", "path": "requestedBy" } }` (separation of duties).
+  `principal` is allowed on an `actor` reference.
+- **Relation:** `{ "related": "commerce/shopper-places-order", "from": {
+  "subject": "actor" }, "to": { "subject": "target" } }` holds when that
+  structure relationship connects the two. Omit `path` for the bare subject.
+
+### Defaults
+
+`"defaults": [{ "default": "allow" }, { "target": "distribution/title",
+"default": "deny" }]` says what happens to a request no policy governs. The
+deepest declared default that contains the request applies. A new workspace
+declares `deny`; a workspace that ran before defaults existed declares `allow`.
+
+## Access (`access/v1`, experimental)
+
+Two homes, each with its own document, named by `home`:
+
+```json
+{
+  "dna": "access/v1",
+  "id": "organization-access",
+  "name": "Organization access",
+  "description": "Our groups and organization-wide guardrails.",
+  "home": "organization",
+  "groups": [
+    { "id": "editors", "description": "Editorial staff.",
+      "when": { "subject": "actor", "path": "memberships", "op": "in", "value": ["editorial"] } }
+  ],
+  "defaults": [{ "default": "deny" }],
+  "policies": [
+    { "id": "no-agent-administers", "description": "Agents never change policies.",
+      "actions": ["administer"],
+      "when": { "subject": "actor", "path": "kind", "op": "eq", "value": "agent" },
+      "effect": { "effect": "deny" } }
+  ]
+}
+```
+
+- `home: "organization"` holds `groups`, `policies` and `defaults`.
+- `home: "workspace"` holds `policies` and `defaults`, never `groups`.
+- A domain's own policies and defaults go in its behaviour document. A policy
+  lives in the document whose home contains its target.
+
+A group is a reusable condition over a principal; `{ "group": "editors" }` is the
+same as writing its condition in place. Ask who is in each group — do not guess
+the attribute it reads. A Workspace may not store access documents or enforce
+these policies yet: draft them, and say so when the person asks to save.
 
 ## Non-negotiables
 
@@ -110,19 +231,14 @@ this grammar — do not hand-write a second rule language in code.
 4. **`external: true` is serious.** Effects that leave DNA (payment, email,
    webhook) stay refused until a sandbox is claimed; say so when you author them.
 
-## Hand off to your person
-
-The flow is: register a sandbox, do real work, then hand your person the claim
-link. After you validate or apply DNA in a sandbox, show your person what you
-built and give them the claim link (use the result's `handoff` block when it
-has one). Ask before you add the DNA rule to `AGENTS.md`, `CLAUDE.md` or Cursor
-rules; the snippet is at https://dna.codes/agents/snippets/agents-md.md
-
 ## Done when
 
 - Structure names the entities and relationships the work needs, with stable ids.
 - Behaviour covers the Actions people and agents must perform, with Operations
   for who acts on what, and Policies for allow / deny / route / approve.
+- When access matters, policies name their target, actions and principals,
+  groups live in the organization access document, and the default of each
+  workspace is stated.
 - Open questions are listed explicitly — not silently filled in.
 - Documents are ordinary JSON ready for [`dna-sync`](../dna-sync/SKILL.md) **when
   the person asks to save**. This skill never writes them to a server.

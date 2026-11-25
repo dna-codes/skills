@@ -6,6 +6,7 @@
 [![npm](https://img.shields.io/npm/v/@dna-codes/cli?label=%40dna-codes%2Fcli)](https://www.npmjs.com/package/@dna-codes/cli)
 [![MCP Registry](https://img.shields.io/badge/MCP%20Registry-codes.dna%2Fagent-0f766e)](https://registry.modelcontextprotocol.io/v0/servers?search=codes.dna/agent)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
+[![M8ven Score](https://m8ven.ai/badge/mcp/dna-codes-skills-sc2t4q?v=36c0c1a26a68c2341942db879e417b8a)](https://m8ven.ai/mcp/dna-codes-skills-sc2t4q?s=readme)
 
 Agent Skills for authoring DNA and syncing it to a Workspace.
 

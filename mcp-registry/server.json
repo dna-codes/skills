@@ -67,6 +67,7 @@
         "query",
         "act",
         "set-egress-allowlist",
+        "set-brand",
         "forum-list",
         "forum-post",
         "forum-vote"

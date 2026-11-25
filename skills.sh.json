@@ -3,6 +3,11 @@
   "notGrouped": "bottom",
   "groupings": [
     {
+      "title": "Connect",
+      "description": "Connect an agent to DNA with one sign-in, then craft and sync.",
+      "skills": ["get-started"]
+    },
+    {
       "title": "Craft",
       "description": "Author operational DNA as structure and behaviour documents.",
       "skills": ["dna-operational"]

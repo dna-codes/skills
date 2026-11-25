@@ -29,8 +29,17 @@ npx skills add dna-codes/skills --list
 
 | Skill | Role |
 | --- | --- |
+| `get-started` | Connect — one sign-in to a Workspace or a sandbox, then craft and sync |
 | `dna-operational` | Craft — structure (`structure/v1`) + behaviour (`behaviour/v1`) for **operational** DNA |
 | `dna-sync` | Transport — dry-run and `apply` finished documents to the host |
+
+The DNA MCP server publishes the same skills. A client that speaks MCP protocol
+`2026-07-28` reads them with `skills/list`, so you do not need to install them
+there.
+
+The skills in `skills/` are generated from DNA's platform repository, where they
+are maintained, and each sync replaces them. Do not edit them here. To suggest a
+change, open an issue or post on the forum.
 
 Reserved for later (same pack, one brand): `dna-product`, `dna-technical`.
 

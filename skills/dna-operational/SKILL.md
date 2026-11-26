@@ -220,6 +220,29 @@ No expressions.
 deepest declared default that contains the request applies. A new workspace
 declares `deny`; a workspace that ran before defaults existed declares `allow`.
 
+### What a person sees: key, within, and a policy's description
+
+A record shows up as a card. Three things in DNA decide what that card says.
+
+- **`key: true`** on an attribute (structure) marks a fact that identifies a
+  record at a glance: an order's `amount` and `shopper`, a loan's `amount`,
+  `borrower` and `home`. Mark as many as are true. A card shows the first
+  three, in the order you declared them, so put the most telling first. Never
+  mark a `state` attribute: the card shows the status anyway.
+- **`within`** on a workflow state that is not final says how long the work
+  there should take, counted from when the record entered the state. The card
+  then says "due in 1 day" or "overdue by 3 hours". Write an ISO 8601 duration
+  in calendar time: `P1W`, `P2D`, `PT4H`, `PT30M`, `P1DT12H`. Months, years and
+  business days are not allowed. Use a number the business really works to (a
+  legal deadline, a promised turnaround), and ask when there is none. Leave it
+  off a long-lived state such as `production`, and never put it on a final
+  state. `within` only labels: it moves no record and escalates to nobody.
+- **A policy's `description`** is shown to the person the policy refuses, in
+  the refusal and in a record's list of what they cannot do. Write it for that
+  person: what they cannot do and why, in their terms ("Refunds above 500 need
+  the customer-care lead's approval."). Keep internal reasoning and other
+  people's names out of it.
+
 ## Access (`access/v1`, experimental)
 
 Two homes, each with its own document, named by `home`:
